@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<project name="ubk_spider" default="compile" basedir=".">
+
+	<property name="dest" value="build/classes" />
+	<property name="base.dir" value="." />
+	<property name="lib.dir" value="${base.dir}/lib" />
+	<property name="dist.release.dir" value="build/release" />
+	<property name="dist.test.dir" value="build/test" />
+	<property name="dist.release.dir.classes" value="build/release/classes" />
+	<property name="dist.test.dir.classes" value="build/test/classes" />
+
+
+	<!-- step 1 -->
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+
+	<!-- step 2 -->
+	<target name="init" depends="clean">
+		<mkdir dir="${dist.release.dir.classes}" />
+		<mkdir dir="${dist.test.dir.classes}" />
+	</target>
+
+	<!-- step 3 -->
+	<target name="copyfiles" depends="init">
+		<copy todir="${dist.release.dir.classes}">
+			<fileset dir="${base.dir}">
+				<include name="lib/" />
+			</fileset>
+			<fileset dir="${base.dir}/src">
+				<include name="*.xml" />
+				<include name="*.properties" />
+				<include name="config/" />
+			</fileset>
+			<fileset dir="${base.dir}/src">
+				<include name="com/unbank/robotspider/dao/*.xml" />
+				<include name="com/unbank/robotspider/filter/manager/*.txt" />
+			</fileset>
+		</copy>
+
+		<copy todir="${dist.test.dir.classes}">
+			<fileset dir="${base.dir}">
+				<include name="lib/" />
+			</fileset>
+			<fileset dir="${base.dir}/src/test-config">
+				<include name="*.xml" />
+				<include name="*.properties" />
+				<include name="config/" />
+			</fileset>
+			<fileset dir="${base.dir}/src">
+				<include name="com/unbank/robotspider/dao/*.xml" />
+				<include name="com/unbank/robotspider/filter/manager/*.txt" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<!-- step 4 -->
+	<target name="compile" depends="copyfiles">
+
+		<javac srcdir="src" destdir="${dist.release.dir.classes}" encoding="utf-8" compiler="javac1.7">
+			<classpath refid="compile.classpath" />
+		</javac>
+
+		<javac srcdir="src" destdir="${dist.test.dir.classes}" encoding="utf-8" compiler="javac1.7">
+			<classpath refid="compile.classpath" />
+		</javac>
+
+	</target>
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+
+	<!-- step 5 
+	<target name="copyclasses" depends="compile">
+		<copy todir="${dist.test.dir.classes}">
+			<fileset dir="${dist.release.dir.classes}">
+				<include name="*.class" />
+			</fileset>
+
+		</copy>
+	</target>
+-->
+</project>

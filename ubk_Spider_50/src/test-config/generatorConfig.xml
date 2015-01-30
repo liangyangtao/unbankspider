@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<context id="context1">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://10.0.0.51:3306/ubk_platform?autoReconnect=true&amp;characterEncoding=UTF-8"
+			userId="user" password="123456" />
+		<javaModelGenerator targetPackage="com.unbank.robotspider.entity"
+			targetProject="ubk_Spider_50/src" />
+		<sqlMapGenerator targetPackage="com.unbank.robotspider.dao"
+			targetProject="ubk_Spider_50/src" />
+		<javaClientGenerator targetPackage="com.unbank.robotspider.dao"
+			targetProject="ubk_Spider_50/src" type="XMLMAPPER" />
+		<table tableName="ptf_website" domainObjectName="WebSiteInfo">
+			<generatedKey column="website_id" sqlStatement="SELECT LAST_INSERT_ID()"
+				identity="true" type="post" />
+		</table>
+		<table tableName="ptf_crawl" domainObjectName="ArticleInfo">
+			<generatedKey column="crawl_id" sqlStatement="SELECT LAST_INSERT_ID()"
+				identity="true" type="post" />
+			<columnOverride column="file_index" jdbcType="TINYINT"
+				javaType="Byte">
+			</columnOverride>
+		</table>
+		<table tableName="ptf_crawl_text" domainObjectName="ArticleContent">
+			<generatedKey column="crawl_id" sqlStatement="SELECT LAST_INSERT_ID()"
+				identity="true" type="post" />
+		</table>
+		<table tableName="ptf_day_num" domainObjectName="EveryDayNum">
+			<generatedKey column="num_id" sqlStatement="SELECT LAST_INSERT_ID()"
+				identity="true" type="post" />
+		</table>
+		<table tableName="ptf_day_num_web" domainObjectName="EveryWebDayNum">
+			<generatedKey column="num_id" sqlStatement="SELECT LAST_INSERT_ID()"
+				identity="true" type="post" />
+		</table>
+
+	</context>
+</generatorConfiguration>

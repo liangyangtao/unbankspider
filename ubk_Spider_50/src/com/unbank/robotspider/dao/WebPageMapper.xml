@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unbank.robotspider.dao.WebPageMapper">
+
+	<insert id="saveWebPage" parameterType="WebPage" keyProperty="crawl_id"
+		useGeneratedKeys="true">
+		insert into ptf_crawl
+		(website_id,crawl_title,web_name,url,crawl_brief
+		,news_time,crawl_time,task) values
+		(#{website_id},#{crawl_title},#{web_name},#{url},#{crawl_brief}
+		,#{news_time}, NOW(),1)
+	</insert>
+
+	<insert id="saveWebPageContent" parameterType="WebPage"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into ptf_crawl_text (crawl_id
+		,text) values (#{crawl_id} ,#{text})
+	</insert>
+
+	<insert id="saveEveryDayWebNum" parameterType="WebPage">
+		INSERT INTO
+		`ptf_day_num_web`(crawl_time,website_id)
+		VALUES(curdate(),#{website_id}) ON
+		DUPLICATE KEY UPDATE num = num +1
+	</insert>
+
+
+	<insert id="saveEveryDayNum">
+		INSERT INTO `ptf_day_num`(num_id,crawl_time)
+		VALUES(DEFAULT,curdate()) ON DUPLICATE KEY UPDATE num = num +1
+	</insert>
+
+</mapper>

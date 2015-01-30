@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unbank.robotspider.dao.WebSiteMapper">
+
+	<select id="selectWebSite" resultType="WebSite">
+		select website_id,
+		web_name,url_home,url_second,url_third
+		from ptf_website where istask =2
+	</select>
+
+	<select id="selectWebSiteNum" resultType="java.lang.Integer">
+		select count(1) from
+		ptf_website where istask=2
+	</select>
+
+</mapper>
